@@ -19,6 +19,8 @@ Write an elevator simulator class that implements the following interfaces (they
         int currentFloor();
     }
 
+Create a test where you run this simulator for a buiding with 100 floors and 6 elevators. Come up with some creative ways of testing your system (i.e. create more requests than elevators, etc).
+
 While we know there are many college project implementations of elevator simulators, this assignment allows for a variety of solutions to a real-world problem.  Your solution will be reviewed by the engineers you would be working with if you joined Locus Energy.  We are interested in seeing your real-world design, coding, and testing skills.
 
 ## Using this scaffold
