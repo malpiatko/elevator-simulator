@@ -6,9 +6,9 @@ This is a very basic scaffold project for you to work in for the elevator simula
 
 Please clone the repository and deliver your solution via email in an archive format of your choice, including all project files, within 1 calendar week.  _Do not submit your solution via pull request to this repository._
 
-Write an elevator simulator class that implements the following interfaces (they are also located in the src directory of this repo):
+Write an elevator simulator system that implements the following interfaces (they are also located in the src directory of this repo):
 
-    public interface ElevatorSimulator {
+    public interface ElevatorControler {
         Elevator callElevator(int fromFloor);
         void releaseElevator(Elevator elev);
     }
