@@ -1,3 +1,5 @@
+package com.locusenergy.homework;
+
 public interface ElevatorController {
     /**
      * This is a blocking call that returns an Elevator instance.
