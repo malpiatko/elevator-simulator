@@ -4,22 +4,23 @@ This is a very basic scaffold project for you to work in for the elevator simula
 
 ## Instructions
 
-Write an elevator simulator system that implements the following interfaces (they are also located in the src directory of this repo along with Javadoc):
+Write an elevator simulator system that runs multiple elevators in a building. Create a test where you run this simulator for a building with 100 floors and 6 elevators. Come up with some creative ways of testing your system (i.e. create more requests than elevators, etc).
+
+While we know there are many college project implementations of elevator simulators, this assignment allows for a variety of solutions to a real-world problem.  Your solution will be reviewed by the engineers you would be working with if you joined Locus Energy.  We are interested in seeing your real-world design, coding, and testing skills, along with workflow interaction with git.
+
+The following interfaces are provided to you as a suggestion (they are also located in the src directory of this repo along with Javadoc). You are free to implement them or come up with your own.
 
     public interface ElevatorControler {
         Elevator callElevator(int fromFloor, int direction);
     }
     
     public interface Elevator {
-        void moveElevator(int toFloor);
         void requestFloor(int floor);
         boolean isBusy();
         int currentFloor();
     }
 
-Create a test where you run this simulator for a building with 100 floors and 6 elevators. Come up with some creative ways of testing your system (i.e. create more requests than elevators, etc).
 
-While we know there are many college project implementations of elevator simulators, this assignment allows for a variety of solutions to a real-world problem.  Your solution will be reviewed by the engineers you would be working with if you joined Locus Energy.  We are interested in seeing your real-world design, coding, and testing skills, along with workflow interaction with git.
 
 ## Using this scaffold
 
