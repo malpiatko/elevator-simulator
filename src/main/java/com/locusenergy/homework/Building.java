@@ -33,6 +33,16 @@ public class Building implements ElevatorController, Runnable {
 		if (fromFloor == maxFloor && direction > 0
 				|| fromFloor == minFloor && direction <=0)
 			throw new InvalidRequestException();
+		ElevatorImp elev = elevators.get(0);
+		for(ElevatorImp e: elevators) {
+			if(e.currentFloor() == fromFloor && !e.isBusy()) {
+			}
+			if(!e.isBusy() || 
+					(e.currentFloor() < fromFloor)) {
+				e.requestFloor(fromFloor);
+			}
+		}
+		System.out.println("Elevator number " + elev.getID() + " has arrived. Get in!");
 		return null;
 	}
 	
@@ -57,7 +67,7 @@ public class Building implements ElevatorController, Runnable {
 	
 	public void startDay() {
 		if(buldingThread == null) {
-			buldingThread = new Thread();
+			buldingThread = new Thread(this);
 		}
 		daytime = true;
 		buldingThread.start();

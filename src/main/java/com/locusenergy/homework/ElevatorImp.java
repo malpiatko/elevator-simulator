@@ -73,7 +73,7 @@ public class ElevatorImp implements Elevator, Runnable {
 	
 	public void switchOn() {
 		if(elevatorThread == null) {
-			elevatorThread = new Thread();
+			elevatorThread = new Thread(this);
 		}
 		switchedOn = true;
 		elevatorThread.start();
