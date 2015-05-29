@@ -12,13 +12,10 @@ public class ElevatorImp implements Elevator, Runnable {
 	private static final int MOVING_DOWN = -1;
 	private static final int IDLE = 0;
 	private final int id;
-	private final int maxFloor;
-	private final int minFloor = 0;
 	
-	private int currentFloor;
-	private int currentDirection;
-	private boolean switchedOn;
-	private boolean busy;
+	private volatile int currentFloor;
+	private volatile int currentDirection;
+	private volatile boolean switchedOn;
 	Thread elevatorThread;
 	private NavigableSet<Integer> calls = new ConcurrentSkipListSet<Integer>();
 
@@ -28,15 +25,22 @@ public class ElevatorImp implements Elevator, Runnable {
 	 */
 	public ElevatorImp(int id, int nFloors) {
 		this.id = id;
-		this.maxFloor = nFloors;
 		this.currentFloor = 0;
 		this.currentDirection = IDLE;
-		this.busy = false;
 	}
 
 	@Override
 	public synchronized void requestFloor(int floor) {
-		calls.add(floor);
+		if (calls.isEmpty()) {
+			if(floor > currentFloor){
+				currentDirection = MOVING_UP;
+			} else currentDirection = MOVING_DOWN;
+			calls.add(floor);
+			elevatorThread.interrupt();
+		} else {
+			calls.add(floor);
+		}
+		
 	}
 
 	@Override
