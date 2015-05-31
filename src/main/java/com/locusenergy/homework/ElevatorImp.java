@@ -2,11 +2,12 @@ package com.locusenergy.homework;
 
 import java.util.NavigableSet;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.TimeUnit;
 
 public class ElevatorImp implements Elevator, Runnable {
 	
-	private static final int FLOOR_TIME = 100;
-	private static final int OPEN_DOOR = 500;
+	private static final int FLOOR_TIME = 2;
+	private static final int OPEN_DOOR = 4;
 	
 	private static final int MOVING_UP = 1;
 	private static final int MOVING_DOWN = -1;
@@ -117,7 +118,7 @@ public class ElevatorImp implements Elevator, Runnable {
 	
 	private void sleep(int time) {
 		try {
-			Thread.sleep(time);
+			TimeUnit.SECONDS.sleep(time);
 		} catch (InterruptedException e) {
 		}	
 	}
