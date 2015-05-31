@@ -18,6 +18,7 @@ public class ElevatorImp implements Elevator, Runnable {
 	private volatile boolean switchedOn;
 	Thread elevatorThread;
 	private NavigableSet<Integer> calls = new ConcurrentSkipListSet<Integer>();
+	private boolean doorOpen;
 
 	/**
 	 * All lifts are created at the ground floor.
@@ -27,6 +28,7 @@ public class ElevatorImp implements Elevator, Runnable {
 		this.id = id;
 		this.currentFloor = 0;
 		this.currentDirection = IDLE;
+		this.doorOpen = false;
 	}
 
 	@Override
@@ -90,7 +92,9 @@ public class ElevatorImp implements Elevator, Runnable {
 	
 	private void checkArrived() {
 		if(calls.remove(currentFloor)) {
+			openDoor();
 			sleep(OPEN_DOOR);
+			closeDoor();
 			if(calls.isEmpty()) {
 				currentDirection = IDLE;
 			}
@@ -114,6 +118,18 @@ public class ElevatorImp implements Elevator, Runnable {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
 		}	
+	}
+	
+	public boolean isDoorOpen() {
+		return doorOpen;
+	}
+	
+	private void openDoor() {
+		this.doorOpen = true;
+	}
+	
+	private void closeDoor() {
+		this.doorOpen = false;
 	}
 
 }

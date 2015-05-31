@@ -31,5 +31,6 @@ public class Day {
 			Person p = new Person(building, name, from, to);
 			new Thread(p).start();
 		}
+		building.switchOffElevators();
 	}
 }

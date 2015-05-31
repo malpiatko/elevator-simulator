@@ -14,10 +14,7 @@ public class Building implements ElevatorController {
 	final int maxFloor;
 	final int nElev;
 	
-	Thread buldingThread;
-	private volatile boolean daytime;
-	
-	
+	Thread buldingThread;	
 	
 	Building(int nElev, int nFloors) {
 		this.maxFloor = nFloors;
@@ -33,17 +30,16 @@ public class Building implements ElevatorController {
 		if (fromFloor == maxFloor && direction > 0
 				|| fromFloor == minFloor && direction <=0)
 			throw new InvalidRequestException();
-		ElevatorImp elev = elevators.get(0);
-		for(ElevatorImp e: elevators) {
-			if(e.currentFloor() == fromFloor && !e.isBusy()) {
-			}
-			if(!e.isBusy() || 
-					(e.currentFloor() < fromFloor)) {
-				e.requestFloor(fromFloor);
+		ElevatorImp e = elevators.get(0);
+		while(e.currentFloor() != fromFloor && e.isDoorOpen()) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
-		System.out.println("Elevator number " + elev.getID() + " has arrived. Get in!");
-		return null;
+		return e;
 	}
 	
 	private void createElevators() {
