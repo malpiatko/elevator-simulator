@@ -29,9 +29,6 @@ public class Person implements Runnable {
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();
 		}
-		
-		// TODO Auto-generated method stub
-
 	}
 
 }
