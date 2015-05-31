@@ -2,6 +2,7 @@ package com.locusenergy.homework;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /*
  * Note: nFloors means that the last floor of the building is nFloors,
@@ -31,14 +32,8 @@ public class Building implements ElevatorController {
 				|| fromFloor == minFloor && direction <=0)
 			throw new InvalidRequestException();
 		ElevatorImp e = elevators.get(0);
-		while(e.currentFloor() != fromFloor && e.isDoorOpen()) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
+		e.requestFloor(fromFloor);
+		while(!e.checkElevator(fromFloor));
 		return e;
 	}
 	

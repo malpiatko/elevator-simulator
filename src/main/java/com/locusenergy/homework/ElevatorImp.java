@@ -134,5 +134,9 @@ public class ElevatorImp implements Elevator, Runnable {
 	private void closeDoor() {
 		this.doorOpen = false;
 	}
+	
+	public boolean checkElevator(int floor) {
+		return currentFloor() == floor && isDoorOpen();
+	}
 
 }
