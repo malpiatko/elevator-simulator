@@ -56,7 +56,7 @@ public class ElevatorImp implements Elevator, Runnable {
 
 	@Override
 	public boolean isBusy() {
-		return (currentDirection == IDLE);
+		return !(currentDirection == IDLE);
 	}
 
 	@Override
@@ -145,6 +145,10 @@ public class ElevatorImp implements Elevator, Runnable {
 	
 	public boolean checkElevator(int floor) {
 		return currentFloor() == floor && isDoorOpen();
+	}
+	
+	public synchronized int diff(int floor) {
+		return (floor - currentFloor())*currentDirection;
 	}
 
 }

@@ -15,7 +15,8 @@ public class Building implements ElevatorController {
 	final int maxFloor;
 	final int nElev;
 	
-	Thread buldingThread;	
+	int rotationLift = 0;
+	
 	
 	Building(int nElev, int nFloors) {
 		this.maxFloor = nFloors;
@@ -40,9 +41,21 @@ public class Building implements ElevatorController {
 		return e;
 	}
 	
-	private ElevatorImp getBestElevator(int fromFloor, int direction) {
-		ElevatorImp e = elevators.get(0);
-		return e;
+	private synchronized ElevatorImp getBestElevator(int fromFloor, int direction) {
+		int minDiff = maxFloor - minFloor;
+		ElevatorImp eMin = null;
+		for(ElevatorImp e: elevators) {
+			if(!e.isBusy()) {
+				return e;
+			}
+			int diff = e.diff(fromFloor);
+			if(diff < minDiff && diff >= 0) {
+				minDiff = diff;
+				eMin = e;
+			}
+		}
+		if (eMin != null) return eMin;
+		return elevators.get(rotationLift++);
 	}
 	
 	private void createElevators() {
