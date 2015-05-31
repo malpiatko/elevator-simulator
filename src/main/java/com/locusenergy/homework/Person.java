@@ -22,7 +22,8 @@ public class Person implements Runnable {
 	 */
 	@Override
 	public void run() {
-		int direction = from > to ? 1 : -1;
+		int direction = from > to ? -1 : 1;
+		System.out.println(direction);
 		try {
 			System.out.println(name + " calling lift at level " + from);
 			Elevator e = b.callElevator(from, direction);

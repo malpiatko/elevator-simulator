@@ -25,8 +25,8 @@ public class Building implements ElevatorController {
 	@Override
 	public Elevator callElevator(int fromFloor, int direction)
 			throws InvalidRequestException {
-		if (fromFloor > maxFloor || fromFloor < minFloor)
-			throw new InvalidRequestException();
+		/*if (fromFloor > maxFloor || fromFloor < minFloor)
+			throw new InvalidRequestException();*/
 		if (fromFloor == maxFloor && direction > 0
 				|| fromFloor == minFloor && direction <=0)
 			throw new InvalidRequestException();
