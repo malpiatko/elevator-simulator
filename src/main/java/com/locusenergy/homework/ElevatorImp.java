@@ -4,6 +4,9 @@ import java.util.NavigableSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.TimeUnit;
 
+/*
+ * TODO: Bugs: not taking into account direction
+ */
 public class ElevatorImp implements Elevator, Runnable {
 	
 	private static final int FLOOR_TIME = 2;
@@ -32,6 +35,9 @@ public class ElevatorImp implements Elevator, Runnable {
 		this.doorOpen = false;
 	}
 
+	/*
+	 * TODO: Have a separate function for summoning lift
+	 */
 	@Override
 	public synchronized void requestFloor(int floor) {
 		if (calls.isEmpty()) {

@@ -23,6 +23,9 @@ public class Building implements ElevatorController {
 		createElevators();
 	}
 
+	/*
+	 * TODO: Take into account the direction of the lift when calling
+	 */
 	@Override
 	public Elevator callElevator(int fromFloor, int direction)
 			throws InvalidRequestException {
