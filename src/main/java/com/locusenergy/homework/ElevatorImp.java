@@ -92,6 +92,8 @@ public class ElevatorImp implements Elevator, Runnable {
 	
 	private void checkArrived() {
 		if(calls.remove(currentFloor)) {
+			System.out.println("Elevator " + id + " arrived at "
+					+ currentFloor);
 			openDoor();
 			sleep(OPEN_DOOR);
 			closeDoor();
