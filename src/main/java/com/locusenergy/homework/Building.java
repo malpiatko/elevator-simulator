@@ -7,7 +7,7 @@ import java.util.List;
  * Note: nFloors means that the last floor of the building is nFloors,
  * therefore there are actually (nFloors + 1) with ground floor
  */
-public class Building implements ElevatorController, Runnable {
+public class Building implements ElevatorController {
 	
 	List<ElevatorImp> elevators;
 	final int minFloor = 0;
@@ -63,30 +63,6 @@ public class Building implements ElevatorController, Runnable {
 		for(ElevatorImp e: elevators) {
 			e.switchOff();
 		}
-	}
-	
-	public void startDay() {
-		if(buldingThread == null) {
-			buldingThread = new Thread(this);
-		}
-		daytime = true;
-		buldingThread.start();
-	}
-	
-	public static void main(String[] args) {
-		Building building = new Building(1, 100);
-		building.startDay();
-	}
-
-	@Override
-	public void run() {
-		switchOnElevators();
-		while(daytime) {
-			
-		}
-		switchOffElevators();
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
