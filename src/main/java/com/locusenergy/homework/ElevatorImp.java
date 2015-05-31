@@ -43,7 +43,9 @@ public class ElevatorImp implements Elevator, Runnable {
 		if (calls.isEmpty()) {
 			if(floor > currentFloor){
 				currentDirection = MOVING_UP;
-			} else currentDirection = MOVING_DOWN;
+			} else if(floor < currentDirection){
+				currentDirection = MOVING_DOWN;
+			}
 			calls.add(floor);
 			elevatorThread.interrupt();
 		} else {
@@ -65,10 +67,10 @@ public class ElevatorImp implements Elevator, Runnable {
 	@Override
 	public void run() {
 		while(switchedOn) {
+			checkArrived();
+			checkDirections();
 			if(currentDirection != 0) {
 				move(currentDirection);
-				checkArrived();
-				checkDirections();
 			} else {
 				sleep(FLOOR_TIME);
 			}

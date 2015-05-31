@@ -34,9 +34,14 @@ public class Building implements ElevatorController {
 		if (fromFloor == maxFloor && direction > 0
 				|| fromFloor == minFloor && direction <=0)
 			throw new InvalidRequestException();
-		ElevatorImp e = elevators.get(0);
+		ElevatorImp e = getBestElevator(fromFloor, direction);
 		e.requestFloor(fromFloor);
 		while(!e.checkElevator(fromFloor));
+		return e;
+	}
+	
+	private ElevatorImp getBestElevator(int fromFloor, int direction) {
+		ElevatorImp e = elevators.get(0);
 		return e;
 	}
 	
