@@ -6,8 +6,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Class used for testing the elevator system
+ */
 public class Day {
 	
+	/**
+	 * 
+	 * @param args - optional, path to input file
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 * If no arguments passed input can be read from console,
+	 * otherwise input read from file. Example format can be found
+	 * in input.txt.
+	 */
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		//Choosing input type
 		InputStreamReader input;
@@ -40,6 +52,5 @@ public class Day {
 			Person p = new Person(building, name, from, to);
 			new Thread(p).start();
 		}
-		//building.switchOffElevators();
 	}
 }
