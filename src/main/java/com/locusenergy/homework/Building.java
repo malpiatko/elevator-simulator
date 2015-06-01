@@ -61,7 +61,7 @@ public class Building implements ElevatorController {
 	
 	private void createElevators() {
 		this.elevators = new ArrayList<ElevatorImp>();
-		for(int i = 0; i <= nElev; i++) {
+		for(int i = 0; i < nElev; i++) {
 			elevators.add(new ElevatorImp(i+1, maxFloor));
 		}
 	}

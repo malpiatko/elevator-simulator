@@ -26,7 +26,6 @@ public class Person implements Runnable {
 		try {
 			System.out.println(name + " calling lift at level " + from);
 			Elevator e = b.callElevator(from, direction);
-			System.out.println(name + " going to " + to);
 			e.requestFloor(to);
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();

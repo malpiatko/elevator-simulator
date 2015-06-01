@@ -18,7 +18,7 @@ public class ElevatorImp implements Elevator, Runnable {
 	private final int id;
 	
 	private volatile int currentFloor;
-	volatile int currentDirection;
+	private volatile int currentDirection;
 	private volatile boolean switchedOn;
 	Thread elevatorThread;
 	private NavigableSet<Integer> calls = new ConcurrentSkipListSet<Integer>();
@@ -135,12 +135,14 @@ public class ElevatorImp implements Elevator, Runnable {
 		return doorOpen;
 	}
 	
-	private synchronized void openDoor() {
+	private synchronized int openDoor() {
 		this.doorOpen = true;
+		return currentFloor;
 	}
 	
-	private synchronized void closeDoor() {
+	private synchronized int closeDoor() {
 		this.doorOpen = false;
+		return currentFloor;
 	}
 	
 	public synchronized boolean checkElevator(int floor) {
