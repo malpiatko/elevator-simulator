@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/*
- * Note: nFloors means that the last floor of the building is nFloors,
- * therefore there are actually (nFloors + 1) with ground floor
- */
 public class Building implements ElevatorController {
 	
 	List<ElevatorImp> elevators;
@@ -17,15 +13,21 @@ public class Building implements ElevatorController {
 	
 	int rotationLift = 0;
 	
-	
+	/**
+	 * 
+	 * @param nElev - number of elevators in the building
+	 * @param nFloors - number of floors above ground floor
+	 */
 	Building(int nElev, int nFloors) {
 		this.maxFloor = nFloors;
 		this.nElev = nElev;
 		createElevators();
 	}
 
-	/*
+	/**
 	 * TODO: Take into account the direction of the lift when calling
+	 * Represents a request for an elevator. Returns when an
+	 * available elevator arrives at the requested floor
 	 */
 	@Override
 	public Elevator callElevator(int fromFloor, int direction)
@@ -41,6 +43,15 @@ public class Building implements ElevatorController {
 		return e;
 	}
 	
+	/**
+	 * 
+	 * @param fromFloor
+	 * @param direction
+	 * @return elevator which should be called next at fromFloor
+	 * Takes care of the logic of choosing an elevator.
+	 * Currently returns the first non-busy elevator or one which
+	 * is closest to the requested floor and going towards it.
+	 */
 	private synchronized ElevatorImp getBestElevator(int fromFloor, int direction) {
 		int minDiff = maxFloor - minFloor;
 		ElevatorImp eMin = null;
