@@ -18,7 +18,7 @@ public class ElevatorImp implements Elevator, Runnable {
 	private final int id;
 	
 	private volatile int currentFloor;
-	private volatile int currentDirection;
+	volatile int currentDirection;
 	private volatile boolean switchedOn;
 	Thread elevatorThread;
 	private NavigableSet<Integer> calls = new ConcurrentSkipListSet<Integer>();
@@ -55,8 +55,8 @@ public class ElevatorImp implements Elevator, Runnable {
 	}
 
 	@Override
-	public boolean isBusy() {
-		return !(currentDirection == IDLE);
+	public synchronized boolean isBusy() {
+		return currentDirection != IDLE;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class ElevatorImp implements Elevator, Runnable {
 		while(switchedOn) {
 			checkArrived();
 			checkDirections();
-			if(currentDirection != 0) {
+			if(currentDirection != IDLE) {
 				move(currentDirection);
 			} else {
 				sleep(FLOOR_TIME);
@@ -117,7 +117,7 @@ public class ElevatorImp implements Elevator, Runnable {
 			if(calls.higher(currentFloor) == null) {
 				currentDirection = MOVING_DOWN;
 			}
-		} else {
+		} else if(currentDirection == MOVING_DOWN){
 			if(calls.lower(currentFloor) == null) {
 				currentDirection = MOVING_UP;
 			}
@@ -131,19 +131,19 @@ public class ElevatorImp implements Elevator, Runnable {
 		}	
 	}
 	
-	public boolean isDoorOpen() {
+	public synchronized boolean isDoorOpen() {
 		return doorOpen;
 	}
 	
-	private void openDoor() {
+	private synchronized void openDoor() {
 		this.doorOpen = true;
 	}
 	
-	private void closeDoor() {
+	private synchronized void closeDoor() {
 		this.doorOpen = false;
 	}
 	
-	public boolean checkElevator(int floor) {
+	public synchronized boolean checkElevator(int floor) {
 		return currentFloor() == floor && isDoorOpen();
 	}
 	

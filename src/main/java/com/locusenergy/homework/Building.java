@@ -55,7 +55,8 @@ public class Building implements ElevatorController {
 			}
 		}
 		if (eMin != null) return eMin;
-		return elevators.get(rotationLift++);
+		rotationLift = (rotationLift + 1) % nElev;
+		return elevators.get(rotationLift);
 	}
 	
 	private void createElevators() {
