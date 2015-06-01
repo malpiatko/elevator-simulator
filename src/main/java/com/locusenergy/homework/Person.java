@@ -1,5 +1,10 @@
 package com.locusenergy.homework;
 
+/**
+ * Represents a request for an elevator
+ * @author daffodil
+ *
+ */
 public class Person implements Runnable {
 	
 	String name;
@@ -18,7 +23,9 @@ public class Person implements Runnable {
 	}
 	
 	/*
-	 * I do not monitor when a person gets off
+	 * TODO: monitor when a person gets off
+	 * Makes a requests for an elevator, waits for the
+	 * elevator to arrive and requests a floor to go to.
 	 */
 	@Override
 	public void run() {
