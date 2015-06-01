@@ -37,6 +37,8 @@ public class ElevatorImp implements Elevator, Runnable {
 
 	/*
 	 * TODO: Have a separate function for summoning lift
+	 * If elevator idle wake up and go to the right direction,
+	 * otherwise add to queue of requests.
 	 */
 	@Override
 	public synchronized void requestFloor(int floor) {
@@ -64,6 +66,11 @@ public class ElevatorImp implements Elevator, Runnable {
 		return currentFloor;
 	}
 
+	/*
+	 * Each iteration consists of checking if arrived
+	 * at destination, switching directions if neccessary
+	 * and moving one floor in the correct direction.
+	 */
 	@Override
 	public void run() {
 		while(switchedOn) {
@@ -82,6 +89,9 @@ public class ElevatorImp implements Elevator, Runnable {
 		return id;
 	}
 	
+	/**
+	 * Creates the thread for the elevator and starts it
+	 */
 	public void switchOn() {
 		if(elevatorThread == null) {
 			elevatorThread = new Thread(this);
@@ -90,15 +100,25 @@ public class ElevatorImp implements Elevator, Runnable {
 		elevatorThread.start();
 	}
 	
+	/**
+	 * Stops the elevator thread from running
+	 */
 	public void switchOff() {
 		switchedOn = false;
 	}
 	
+	/*
+	 * Move one floor in the current direction
+	 */
 	private void move(int direction) {
 		currentFloor += direction;
 		sleep(FLOOR_TIME);
 	}
 	
+	/*
+	 * Checks if arrived at a destination and performs
+	 * neccessary actions
+	 */
 	private void checkArrived() {
 		if(calls.remove(currentFloor)) {
 			System.out.println("Elevator " + id + " arrived at "
@@ -112,6 +132,10 @@ public class ElevatorImp implements Elevator, Runnable {
 		}
 	}
 	
+	/*
+	 * Changes the direction if no more requests
+	 * in the current direction
+	 */
 	private void checkDirections() {
 		if(currentDirection == MOVING_UP) {
 			if(calls.higher(currentFloor) == null) {
@@ -124,10 +148,14 @@ public class ElevatorImp implements Elevator, Runnable {
 		}
 	}
 	
+	
 	private void sleep(int time) {
 		try {
 			TimeUnit.SECONDS.sleep(time);
 		} catch (InterruptedException e) {
+			//No thread is expected to interrupt,
+			//ignore if it happens
+			e.printStackTrace();
 		}	
 	}
 	
@@ -135,20 +163,35 @@ public class ElevatorImp implements Elevator, Runnable {
 		return doorOpen;
 	}
 	
+	/**
+	 * Returns the current floor for debugging purposes
+	 */
 	private synchronized int openDoor() {
 		this.doorOpen = true;
 		return currentFloor;
 	}
 	
+	/**
+	 * Returns the current floor for debugging purposes
+	 */
 	private synchronized int closeDoor() {
 		this.doorOpen = false;
 		return currentFloor;
 	}
 	
+	/**
+	 * Returns true if elevator is at the floor
+	 * passed as argument and the floor is it's destination
+	 */
 	public synchronized boolean checkElevator(int floor) {
 		return currentFloor() == floor && isDoorOpen();
 	}
 	
+	/**
+	 * Returns the number of floors between the floor given
+	 * as argument and current floor, the value is negative
+	 * if the lift is going in the opposite direction.
+	 */
 	public synchronized int diff(int floor) {
 		return (floor - currentFloor())*currentDirection;
 	}
