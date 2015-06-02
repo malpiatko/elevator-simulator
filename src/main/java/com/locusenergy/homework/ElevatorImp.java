@@ -153,9 +153,6 @@ public class ElevatorImp implements Elevator, Runnable {
 		try {
 			TimeUnit.SECONDS.sleep(time);
 		} catch (InterruptedException e) {
-			//No thread is expected to interrupt,
-			//ignore if it happens
-			e.printStackTrace();
 		}	
 	}
 	
