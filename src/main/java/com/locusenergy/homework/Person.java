@@ -32,7 +32,8 @@ public class Person implements Runnable {
 		int direction = from > to ? -1 : 1;
 		try {
 			System.out.println(name + " calling lift at level " + from);
-			Elevator e = b.callElevator(from, direction);
+			ElevatorImp e = b.callElevator(from, direction);
+			System.out.println(name + " goint to level " + to + " in " + e.getID());
 			e.requestFloor(to);
 		} catch (InvalidRequestException e) {
 			e.printStackTrace();

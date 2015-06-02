@@ -30,7 +30,7 @@ public class Building implements ElevatorController {
 	 * available elevator arrives at the requested floor
 	 */
 	@Override
-	public Elevator callElevator(int fromFloor, int direction)
+	public ElevatorImp callElevator(int fromFloor, int direction)
 			throws InvalidRequestException {
 		if (fromFloor > maxFloor || fromFloor < minFloor)
 			throw new InvalidRequestException();
